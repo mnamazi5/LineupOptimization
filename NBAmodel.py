@@ -60,13 +60,13 @@ def getStats(player):
     #The following two 'if' statements account for two specific URL inconsistencies 
     
     if soup.findAll('th') == []:
-        m = re.search(player['First Name'][0:2].lower(), url)
+        mid = re.search(player['First Name'][0:2].lower(), url)
     
-        s1 = url[:m.end()]
-        s2 = url[m.end():]
-        s3 = s2.replace(player['First Name'][0:2].lower(),player['First Name'][2].lower() + player['First Name'][1].lower(),1)
+        website = url[:mid.end()]
+        playerExtension = url[mid.end():]
+        cleanPlayerExtension = playerExtension.replace(player['First Name'][0:2].lower(),player['First Name'][2].lower() + player['First Name'][1].lower(),1)
     
-        url = s1+s3
+        url = website+cleanPlayerExtension
         url = url.replace('05','01',1)
     
         html = urlopen(url)
