@@ -7,16 +7,16 @@ import math
 import time
 import re
 
-#import data
+# import data
 df = pd.read_csv('FanDuel-NBA-2019-02-23-32998-players-list.csv')
 
-#Strip Nickname of spaces to be used as variables for optimization
+# Strip Nickname of spaces to be used as variables for optimization
 df['Nickname'] = df['Nickname'].apply(lambda x: x.replace(" ",""))
 
-# Giving players
+# Giving all players their EV by default
 df['modelFPPG'] = df['FPPG']
 
-#Strip First and Last name for use in URL
+# Strip First and Last name for use in URL
 df["First Name"] = df['First Name'].str.replace('[^\w\s]','')
 df["Last Name"] = df['Last Name'].str.replace('[^\w\s]','')
 
@@ -112,11 +112,11 @@ def getStats(player):
     return modelFPPG
     
     
-#Finding modelFPPG of top 200 players
+# Finding modelFPPG of top 200 players
 df.loc[0:200,'modelFPPG'] = df.loc[0:200,:].apply(func = getStats,axis = 1)
 
 
-#Initiate Solver and constraints
+# Initiate Solver and constraints
 solver = pywraplp.Solver('Lineup Optimizer',
                             pywraplp.Solver.CBC_MIXED_INTEGER_PROGRAMMING)
 objective = solver.Objective()
