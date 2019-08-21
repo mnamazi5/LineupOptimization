@@ -90,7 +90,7 @@ def getStats(player):
     headers = [th.getText() for th in soup.findAll('tr')[i-1].findAll('th')]
     headers = headers[1:]
     
-    #extracts dats per row and fills into stats dataframe
+    #extracts data per row and fills into stats dataframe
     rows = soup.findAll('tr')[32:]
     player_stats = [[td.getText() for td in rows[i].findAll('td')]
                     for i in range(len(rows))]
@@ -131,15 +131,15 @@ constraintC = solver.Constraint(1,1)
 
 def initiateVariables(player):
     #Input: row of df(or player)
-    #Ouput: adds each players as variable in Linear Programming Problem
+    #Ouput: adds each player as variable in Linear Programming Problem
         
-    #Globals allows us to iniate a dynamic variable name into oru program
+    #Globals() allows us to iniate a dynamic variable name into our program
     globals()[player['Nickname']] = solver.IntVar(0,1,player['Nickname'])
         
     #Set player coeff as modelFPPG (what we want to maximize)
     objective.SetCoefficient(globals()[player['Nickname']],player['modelFPPG'])
         
-    #Adding each player's respective value for respective constraint
+    #Adding each player's coefficient for respective constraint
     constraintSalary.SetCoefficient(globals()[player['Nickname']],player['Salary'])
         
     if player['Position'] == 'PG':
