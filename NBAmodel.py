@@ -73,7 +73,7 @@ def getStats(player):
     print(modelFPPG)
     return modelFPPG
 
-#Finding modelFPPG of top 200 players
+#Finding modelFPPG of all players
 df.loc[:,'modelFPPG'] = df.apply(func = getStats,axis = 1)
 
 #Initiate Solver and constraints
